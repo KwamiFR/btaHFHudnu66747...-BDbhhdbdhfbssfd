@@ -5,33 +5,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Accès refusé</title>
     <script>
-        // Fonction pour détecter si l'appareil est une télévision
-        function isSmartTV() {
-            const userAgent = navigator.userAgent.toLowerCase();
-            // Liste d'exemples de chaînes que l'on pourrait trouver dans les user agents TV
-            const tvUserAgents = [
-                'smarttv', 
-                'tizen', 
-                'lg', 
-                'roku', 
-                'apple tv',
-                'netcast', 
-                'vizio'
+        document.addEventListener('DOMContentLoaded', function() {
+            // Vérifier si le User-Agent indique un téléviseur
+            var userAgent = navigator.userAgent.toLowerCase();
+            var tvUserAgents = [
+                'smarttv', // général
+                'tv', // général
+                'mediaplayer', // médiaplayer courants
+                'hbbtv', // iTV qui supporte HbbTV
+                'apple tv', // Apple TV
+                'googletv', // Google TV
+                'android tv', // Android TV
+                'fire tv', // Amazon Fire TV
+                'roku', // Roku
+                'lg', // Smart TVs LG
+                'samsung', // Smart TVs Samsung
+                'panasonic', // Smart TVs Panasonic
+                'sonysmarttv', // Smart TVs Sony
             ];
-            return tvUserAgents.some(tv => userAgent.includes(tv));
-        }
+            
+            // Vérifier si l'un des User-Agent de TV est présent
+            var isTV = tvUserAgents.some(agent => userAgent.includes(agent));
 
-        // Exécutez la fonction lorsque le DOM est complètement chargé
-        document.addEventListener('DOMContentLoaded', () => {
-            if (isSmartTV()) {
-                // Rediriger ou afficher un message de refus
-                document.body.innerHTML = '<h1>Accès refusé</h1><p>Ce site n\'est pas accessible sur les télévisions.</p>';
+            if (isTV) {
+                // Afficher le message d'accès refusé
+                document.body.innerHTML = '<h1>Connexion refusée</h1><p>Vous n\'avez pas accès à ce site depuis un téléviseur.</p>';
             }
         });
     </script>
 </head>
 <body>
     <h1>Bienvenue sur notre site</h1>
-    <p>Contenu du site accessible sur les appareils compatibles.</p>
+    <p>Veuillez utiliser un autre appareil pour accéder au contenu.</p>
 </body>
 </html>
